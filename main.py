@@ -4,8 +4,6 @@ import sensor
 import connect2,function2
 def sensorinit(sensor,mode):
     if mode == "templateMatch":
-        print("tmss")
-        # Set sensor settings
         sensor.set_contrast(1)
         sensor.set_gainceiling(16)
         # Max resolution for template matching with SEARCH_EX is QQVGA
@@ -14,14 +12,12 @@ def sensorinit(sensor,mode):
         #sensor.set_windowing(((640-80)//2, (480-60)//2, 80, 60))
         sensor.set_pixformat(sensor.GRAYSCALE)
     if mode == "QRCode":
-        print("QRss")
         sensor.set_pixformat(sensor.RGB565)
-        sensor.set_framesize(sensor.QQVGA)  # can be QVGA on M7...
+        sensor.set_framesize(sensor.QQVGA)
         sensor.skip_frames(30)
         sensor.set_auto_gain(False)  # must turn this off to prevent image washout...
     if mode == "Color":
-        print("Coss")
-        sensor.set_pixformat(sensor.RGB565)  # use RGB565.
+        sensor.set_pixformat(sensor.RGB565)
         #设置图像色彩格式，有RGB565色彩图和GRAYSCALE灰度图两种
         sensor.set_framesize(sensor.QQVGA)  # 使用QQVGA的速度。
         #设置图像像素大小
@@ -47,7 +43,6 @@ def functionLED():
         led_control(i)
         time.sleep(500)
 def hand():
-    # Reset sensor
     sensor.rest()
     sensorinit(sensor,"templateMatch")
     function2.templateMatch(sensor, "hand")
@@ -66,7 +61,7 @@ def QRCode():
         connect2.QrCodeFounction(code)
         time.sleep(3500)
 def color():
-    sensor.reset()  # 初始化sensor
+    sensor.reset()
     sensorinit(sensor,"Color")
     back = 0
     while(back<4):
