@@ -1,6 +1,6 @@
 import time
 from pyb import UART
-def sentdata(FounctionGroup,times):
+def sentdata(FounctionGroup,times):# If you need to send data, firstly change this place, useing sendnumber()function to send something like 0xff or some thing like this.
     print("Connection succeed",FounctionGroup)
     uart = UART(3, 115200)
     uart.write("#STOP\r")
@@ -20,9 +20,9 @@ def QrCodeFounction(Code):
 def ColorFounction(code):
     sentdata(2+code, 1)
 
-def sendnumberchange(number, mode):
+def numberchange(number, mode):
     if mode == 1:
-        pass
+        return (int(number))
     elif mode == 2:
         return (hex(number))
     elif mode == 3:
@@ -32,11 +32,11 @@ def sendnumber(number, times,mode):
     '''
     Important reminding:
         you need to give me the 10 int number to send, but the 0xff is still useful.
-        In a word , you need to press 0xff to make it work.
+        In a word , you need to press sendnumber(0xff, .. , ..) to make it work.
     '''
     print("Connection succeed", number)
-    uart = UART(3, 115200)
-    buf = sendnumberchange(number, 3)
+    uart = UART(3, 115200) # You need to change this place so that you can use openmv for your team.
+    buf = numberchange(number, mode) #I wrote three mode of sending the 0xff, I don't know which one is Ok for your bord, please try it to make it work.
     while(times):
         uart.write(buf)
         times -= 1
