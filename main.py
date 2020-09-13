@@ -78,5 +78,5 @@ def main():
     color()
     templatematchtest()
     QRCode()
-
-main()
+if __name__ == '__main__':
+    main()
